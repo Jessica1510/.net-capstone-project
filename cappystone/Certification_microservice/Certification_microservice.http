@@ -1,0 +1,6 @@
+@Certification_microservice_HostAddress = http://localhost:5003
+
+GET {{Certification_microservice_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

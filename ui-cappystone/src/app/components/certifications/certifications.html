@@ -1,0 +1,74 @@
+<div class="cert-page">
+
+  <div class="cert-header">
+    <h2>Your Certifications</h2>
+    <button class="top-right-add-btn" (click)="showForm = true">Add Certification</button>
+  </div>  
+
+  <div class="cert-grid">
+    <div class="cert-tile" *ngFor="let cert of certifications" (click)="openDetails(cert)">
+      <div class="cert-icon">📜</div>
+      <div class="cert-name">{{ getCourseLabel(cert.courseId) }}</div>
+      <div class="cert-status" [ngClass]="isExpired(cert) ? 'badge-expired' : 'badge-valid'">
+        {{ isExpired(cert) ? 'Expired' : 'Valid' }}
+      </div>      
+      <button *ngIf="isExpired(cert)" class="remove-btn" (click)="removeCert(cert.id, $event)">
+        Remove
+      </button>      
+    </div>
+  </div>
+
+  <!-- Add Certification Modal -->
+<div class="modal" *ngIf="showForm">
+  <div class="modal-content">
+    <span class="close" (click)="showForm = false">&times;</span>
+    <h3>Add Certification</h3>
+
+    <form (ngSubmit)="submitCert()" #certForm="ngForm">
+      <label>
+        Course:
+        <select [(ngModel)]="newCert.courseId" name="courseId" required>
+          <option *ngFor="let course of courses" [value]="course.id">
+  {{ course.title }}
+</option>
+        </select>
+      </label>
+
+      <label>
+        Issued On:
+        <input type="date" [(ngModel)]="newCert.issuedOn" name="issuedOn" required />
+      </label>
+
+      <label>
+        Valid Till:
+        <input type="date" [(ngModel)]="newCert.validTill" name="validTill" required />
+      </label>
+
+      <label>
+        Credential Number:
+        <input type="text" [(ngModel)]="newCert.credentialNumber" name="credentialNumber" required />
+      </label>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+  <!-- Pop up-->
+  <div class="modal" *ngIf="selectedCert">
+    <div class="modal-content">
+      <span class="close" (click)="closeDetails()">&times;</span>
+      <div class="cert-status-badge" [ngClass]="isExpired(selectedCert) ? 'expired' : 'valid'">
+        {{ isExpired(selectedCert) ? 'Expired' : 'Valid' }}
+      </div>      
+      <div class="cert-icon-large">📜</div>
+      <h3>
+        {{ getCourseLabel(selectedCert.courseId) || 'Course #' + selectedCert.courseId }}
+      </h3>
+      <p><strong>Course ID:</strong> {{ selectedCert.courseId }}</p>
+      <p><strong>Issued On:</strong> {{ selectedCert.issuedOn | date }}</p>
+      <p><strong>Valid Till:</strong> {{ selectedCert.validTill | date }}</p>      
+    </div>
+  </div>
+</div>
+

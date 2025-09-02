@@ -1,0 +1,43 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Specific styling for Toolbox+ link */
+.brand-link {
+  color: orange !important; /* Force orange */
+  text-decoration: none;
+}
+
+.brand-link:hover {
+  color: orange !important;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+/* Apply to all other navbar links except the brand */
+.navbar a:not(.brand-link) {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.navbar a:not(.brand-link):hover {
+  background-color: #ddd;
+}
+
+.active-tab {
+  background-color: #007bff;
+  color: white;
+}

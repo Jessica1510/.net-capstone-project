@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account_microservice", "Account_microservice\Account_microservice.csproj", "{5DD92AA3-588D-4C9E-8551-D7C9CFC7D7A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Certification_microservice", "Certification_microservice\Certification_microservice.csproj", "{B35BACAA-D1AF-4005-9EAC-41EC7CB63D74}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claim_microservice", "Claim_microservice\Claim_microservice.csproj", "{51F26812-8964-47E2-A80E-EEA8FAA53ED8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Course_microservice", "Course_microservice\Course_microservice.csproj", "{019EE0B7-8F6A-4E83-B094-29C2C328E100}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F553B4F4-E878-4C84-B73F-2F400A4A6BAD} = {F553B4F4-E878-4C84-B73F-2F400A4A6BAD}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker_microservice", "Worker_microservice\Worker_microservice.csproj", "{A298E959-71C4-4F5B-821D-61775B57CB37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtAuthExtension", "JwtAuthExtension\JwtAuthExtension.csproj", "{F553B4F4-E878-4C84-B73F-2F400A4A6BAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "worker-gateway", "worker-gateway\worker-gateway.csproj", "{23CF09C8-4D2D-4DF0-B45E-6C0AAF0E6561}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DD92AA3-588D-4C9E-8551-D7C9CFC7D7A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD92AA3-588D-4C9E-8551-D7C9CFC7D7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD92AA3-588D-4C9E-8551-D7C9CFC7D7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD92AA3-588D-4C9E-8551-D7C9CFC7D7A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35BACAA-D1AF-4005-9EAC-41EC7CB63D74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35BACAA-D1AF-4005-9EAC-41EC7CB63D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35BACAA-D1AF-4005-9EAC-41EC7CB63D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35BACAA-D1AF-4005-9EAC-41EC7CB63D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51F26812-8964-47E2-A80E-EEA8FAA53ED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51F26812-8964-47E2-A80E-EEA8FAA53ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51F26812-8964-47E2-A80E-EEA8FAA53ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51F26812-8964-47E2-A80E-EEA8FAA53ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019EE0B7-8F6A-4E83-B094-29C2C328E100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019EE0B7-8F6A-4E83-B094-29C2C328E100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019EE0B7-8F6A-4E83-B094-29C2C328E100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019EE0B7-8F6A-4E83-B094-29C2C328E100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A298E959-71C4-4F5B-821D-61775B57CB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A298E959-71C4-4F5B-821D-61775B57CB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A298E959-71C4-4F5B-821D-61775B57CB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A298E959-71C4-4F5B-821D-61775B57CB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F553B4F4-E878-4C84-B73F-2F400A4A6BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F553B4F4-E878-4C84-B73F-2F400A4A6BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F553B4F4-E878-4C84-B73F-2F400A4A6BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F553B4F4-E878-4C84-B73F-2F400A4A6BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23CF09C8-4D2D-4DF0-B45E-6C0AAF0E6561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23CF09C8-4D2D-4DF0-B45E-6C0AAF0E6561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23CF09C8-4D2D-4DF0-B45E-6C0AAF0E6561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23CF09C8-4D2D-4DF0-B45E-6C0AAF0E6561}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6970C651-0D32-43E4-A190-85E2F54DB232}
+	EndGlobalSection
+EndGlobal

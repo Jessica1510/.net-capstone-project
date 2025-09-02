@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Your Claims</h2>
+    <button class="btn btn-primary" (click)="showForm = true">Add Claim</button>
+  </div>
+
+  <!-- Claim Form -->
+  <div *ngIf="showForm" class="card mb-4">
+    <div class="card-body">
+      <form [formGroup]="claimForm" (ngSubmit)="submitClaim()">
+        <div class="mb-3">
+          <label for="courseId" class="form-label">Course ID</label>
+          <select formControlName="courseId" id="courseId">
+    <option value="">Select a course</option>
+    <option *ngFor="let course of availableCourses" [value]="course.id">
+      {{ course.title }}
+    </option>
+  </select>
+        </div>
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount</label>
+          <input id="amount" formControlName="amount" type="number" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="remarks" class="form-label">Remarks</label>
+          <input id="remarks" formControlName="remarks" class="form-control" />
+        </div>
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="showForm = false">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mb-3">
+  <label for="statusFilter" class="form-label">Filter by Status</label>
+  <select id="statusFilter" class="form-select" [(ngModel)]="selectedStatus" (change)="filterClaims()">
+    <option value="">All</option>
+    <option value="Pending">Pending</option>
+    <option value="Approved">Approved</option>
+    <option value="Rejected">Rejected</option>
+  </select>
+</div>
+  <!-- Claim Cards -->
+  <div class="row">
+    <div *ngFor="let claim of filteredClaims" class="col-md-4 mb-4">
+      <div class="card h-100 position-relative">
+        <div class="card-header d-flex justify-content-between">
+          <span>{{ claim.submittedOn | date: 'mediumDate' }}</span>
+          <span class="text-success fw-bold">${{ claim.amount }}</span>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ getCourseTitle(claim.courseId) }}</h5>
+          <p class="card-title"><strong>Course Id:</strong> {{ claim.courseId }}</p>
+          <p class="card-text"><strong>Status:</strong> {{ claim.status }}</p>
+          <p class="card-text"><strong>Remarks:</strong> {{ claim.remarks }}</p>
+        </div>
+        <td>
+  <div class="action-icons">
+    <button *ngIf="claim.status === 'Pending'" (click)="editClaim(claim)" class="icon-button">
+      <i class="fas fa-pencil-alt"></i>
+    </button>
+    <button *ngIf="claim.status === 'Pending'" (click)="deleteClaim(claim.id)" class="icon-button delete">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  </div>
+</td>
+      </div>
+    </div>
+  </div>
+</div>
+

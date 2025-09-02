@@ -1,0 +1,38 @@
+<body>
+  <div class="login-container">
+    <div class="logo">Toolbox+</div> <!-- Now outside the frosted glass -->
+    <div class="login-wrapper">
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            formControlName="username"
+            placeholder="Enter your username"
+          />
+        </div>
+
+        <div class="mb-3">
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <div class="d-grid gap-3 mt-4">
+          <button type="submit" class="btn btn-primary btn-lg" [disabled]="!loginForm.valid">
+            Login
+          </button>
+        </div>
+
+        <p class="mt-5 mb-3 text-muted">© 2025</p>
+      </form>
+    </div>
+  </div>
+</body>

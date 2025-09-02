@@ -1,0 +1,21 @@
+.action-icons {
+  display: flex;
+  justify-content: flex-end; /* Aligns icons to the right */
+  gap: 8px; /* Adds space between icons */
+  padding: 4px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.icon-button i {
+  color: #333;
+}
+
+.icon-button.delete i {
+  color: red;
+}

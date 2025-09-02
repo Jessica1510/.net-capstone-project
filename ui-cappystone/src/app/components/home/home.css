@@ -1,0 +1,13 @@
+.profile-card {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.profile-card ul {
+  list-style: none;
+  padding: 0;
+}
+.profile-card li {
+  margin-bottom: 0.5rem;
+}

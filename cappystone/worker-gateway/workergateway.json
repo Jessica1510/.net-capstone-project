@@ -1,0 +1,33 @@
+{
+  "BaseUrl": "https://localhost:7001",
+  "Routes": [
+    //Account Services
+    {
+      "UpstreamPathTemplate": "/gateway/accounts/{everything}",
+      "UpstreamHttpmethods": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/api/accounts/{everything}",
+      "DownstreanSchema": "https",
+      "DownstreamhostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7010
+        }
+      ]
+    },
+    //Worker Services
+    {
+      "UpstreamPathTemplate": "/gateway/Worker/{everything}",
+      "UpstreamHttpmethods": [ "Get", "Post" ],
+      "DownstreamPathTemplate": "/api/Worker/{everything}",
+      "DownstreanSchema": "https",
+      "DownstreamhostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7010
+        }
+      ]
+    }
+
+  ]
+
+}

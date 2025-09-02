@@ -1,0 +1,194 @@
+<div class="container mt-4">
+  <!-- Tab-style toggle navigation -->
+  <ul class="nav nav-pills mb-4">
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeView === 'courses'" (click)="setView('courses')">
+        Available Courses
+      </button>
+    </li>
+    <li class="nav-item">
+      <button class="nav-link" [class.active]="activeView === 'enrollments'" (click)="setView('enrollments')">
+        My Enrollments
+      </button>
+    </li>
+  </ul>
+  <button *ngIf="isAdmin()" class="btn btn-outline-dark mb-3" (click)="toggleManageMode()">
+  {{ manageMode ? 'Exit Manage Mode' : 'Manage Courses' }}
+</button>
+
+  <!-- Header Actions -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 *ngIf="activeView === 'courses'">Available Courses</h2>
+    <h2 *ngIf="activeView === 'enrollments'">My Enrollments</h2>
+    <!--<div class="header-actions">
+      <button class="btn btn-outline-secondary me-2" (click)="fetchCourses()" [disabled]="loadingCourses">
+        {{ loadingCourses ? 'Loading…' : 'Refresh Courses' }}
+      </button>
+      <button class="btn btn-outline-primary" (click)="fetchEnrollments()" [disabled]="!userId || loadingEnrollments">
+        {{ loadingEnrollments ? 'Loading…' : 'Refresh Enrollments' }}
+      </button>
+    </div>-->
+  </div>
+
+  <!-- User Info 
+  <div *ngIf="userId" class="mb-3">
+    Signed in as: <strong>{{ userId }}</strong>
+  </div>
+  <div *ngIf="!userId" class="alert alert-warning">
+    Not signed in. Please sign in to enroll and view your courses.
+  </div>-->
+
+  <!-- Messages -->
+  <div *ngIf="infoMessage" class="alert alert-info">{{ infoMessage }}</div>
+  <div *ngIf="errorCourses" class="alert alert-danger">{{ errorCourses }}</div>
+  <div *ngIf="errorEnrollments" class="alert alert-danger">{{ errorEnrollments }}</div>
+
+  <!-- Available Courses Section -->
+  <div *ngIf="activeView === 'courses'">
+    <!-- Admin Course Form -->
+<div *ngIf="isAdmin() && manageMode" class="card card-body mb-4">
+  <h5>{{ isEditing ? 'Edit Course' : 'Create New Course' }}</h5>
+  <form (ngSubmit)="saveCourse()" class="row g-3">
+    <div class="col-md-6">
+      <label>Title</label>
+      <input type="text" class="form-control" [(ngModel)]="courseForm.title" name="title" required />
+    </div>
+    <div class="col-md-6">
+      <label>Mode</label>
+      <input type="text" class="form-control" [(ngModel)]="courseForm.mode" name="mode" required />
+    </div>
+    <div class="col-md-12">
+      <label>Description</label>
+      <textarea class="form-control" [(ngModel)]="courseForm.description" name="description" rows="3" required></textarea>
+    </div>
+    <div class="col-md-6">
+      <label>Start Date</label>
+      <input type="date" class="form-control" [(ngModel)]="courseForm.startDate" name="startDate" required />
+    </div>
+    <div class="col-md-6">
+      <label>End Date</label>
+      <input type="date" class="form-control" [(ngModel)]="courseForm.endDate" name="endDate" required />
+    </div>
+    <div class="col-md-6">
+      <label>Cost</label>
+      <input type="number" class="form-control" [(ngModel)]="courseForm.cost" name="cost" required />
+    </div>
+    <div class="col-md-12 d-flex justify-content-end gap-2">
+      <button type="submit" class="btn btn-primary">{{ isEditing ? 'Update' : 'Create' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="openCreateForm()">Cancel</button>
+    </div>
+  </form>
+</div>
+
+    <div *ngIf="loadingCourses" class="loading">Loading courses…</div>
+    <div *ngIf="!loadingCourses && !errorCourses && courses.length === 0" class="empty">No courses available.</div>
+
+    <div class="row">
+      <div *ngFor="let c of courses; trackBy: trackByCourseId" class="col-md-12 mb-4">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h5 class="card-title mb-0">{{ c.title }}</h5>
+                  <span class="badge bg-primary">{{ c.mode }}</span>
+                </div>
+
+                <p class="card-text">
+  {{ c.description | slice:0:150 }}
+  <span *ngIf="isTruncatable(c.description) && !expanded[c.id]">...</span>
+  <span *ngIf="isTruncatable(c.description) && expanded[c.id]">{{ c.description.slice(150) }}</span>
+</p>
+
+                <button
+                  class="btn btn-link p-0"
+                  *ngIf="isTruncatable(c.description)"
+                  (click)="toggleExpand(c.id)">
+                  {{ expanded[c.id] ? '▲ Less' : '▼ More' }}
+                </button>
+
+                <div class="row mt-3">
+                  <div class="col"><strong>Start:</strong> {{ c.startDate | date: 'mediumDate' }}</div>
+                  <div class="col"><strong>End:</strong> {{ c.endDate | date: 'mediumDate' }}</div>
+                  <div class="col"><strong>Cost:</strong> {{ c.cost | currency:'SGD':'symbol' }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <button
+  class="btn btn-success w-100"
+  (click)="signUp(c.id)"
+  [disabled]="!userId || signingUp[c.id] || loadingEnrollments || isAlreadyEnrolled(c.id)">
+  {{ signingUp[c.id] ? 'Signing up…' : isAlreadyEnrolled(c.id) ? 'Already Enrolled' : 'Sign up' }}
+</button>
+ <!-- Admin-only controls -->
+  <div *ngIf="isAdmin() && manageMode" class="mt-2 d-flex gap-2">
+    <button class="btn btn-sm btn-warning" (click)="openEditForm(c)">
+      <i class="bi bi-pencil"></i>
+    </button>
+    <button class="btn btn-sm btn-danger" (click)="deleteCourse(c.id)">
+      <i class="bi bi-trash"></i>
+    </button>
+  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Enrollments Section -->
+  <div *ngIf="activeView === 'enrollments' && userId">
+    <div *ngIf="loadingEnrollments" class="loading">Loading your enrollments…</div>
+    <div *ngIf="!loadingEnrollments && enrollments.length === 0" class="empty">
+      You haven’t enrolled in any courses yet.
+    </div>
+
+    <div class="row">
+      <div *ngFor="let e of enrollments" class="col-md-12 mb-4">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h5 class="card-title mb-0">{{ e.title }}</h5>
+                  <span class="badge bg-primary">{{ e.mode }}</span>
+                </div>
+
+                <p class="card-text">
+  {{ e.description | slice:0:150 }}
+  <span *ngIf="isEnrollmentTruncatable(e.description) && !expandedEnrollments[e.id]">...</span>
+  <span *ngIf="isEnrollmentTruncatable(e.description) && expandedEnrollments[e.id]">{{ e.description.slice(150) }}</span>
+</p>
+
+<button
+  class="btn btn-link p-0"
+  *ngIf="isEnrollmentTruncatable(e.description)"
+  (click)="toggleEnrollmentExpand(e.id)">
+  {{ expandedEnrollments[e.id] ? '▲ Less' : '▼ More' }}
+</button>
+
+                <div class="row mt-3">
+                  <div class="col"><strong>Start:</strong> {{ e.startDate | date:'mediumDate' }}</div>
+                  <div class="col"><strong>End:</strong> {{ e.endDate | date:'mediumDate' }}</div>
+                  <div class="col"><strong>Cost:</strong> {{ e.cost | currency:'SGD':'symbol' }}</div>
+                </div>
+                <div class="mt-2"><strong>Enrolled:</strong> {{ e.enrolledAt | date:'medium' }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 d-flex align-items-center justify-content-center">
+            <button
+              class="btn btn-outline-danger w-100"
+              (click)="drop(e.id)"
+              [disabled]="loadingEnrollments">
+              Drop
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

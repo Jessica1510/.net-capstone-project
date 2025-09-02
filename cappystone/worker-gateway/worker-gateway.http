@@ -1,0 +1,6 @@
+@worker_gateway_HostAddress = http://localhost:5015
+
+GET {{worker_gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

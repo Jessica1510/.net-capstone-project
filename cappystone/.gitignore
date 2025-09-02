@@ -1,0 +1,70 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.pid
+*.svd
+
+# Package directories
+packages/
+*.nupkg
+*.snupkg
+
+# Backup & metadata files
+*.bak
+*.orig
+*.rej
+*.cache
+
+# Generated files
+*.g.*
+*.generated.*
+
+# Publish output
+publish/
+out/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# Azure Functions
+local.settings.json
+
+# DotNet specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Entity Framework
+*.edmx.diagram
+*.edmx.sql
+
+# Windows-specific files
+Thumbs.db
+desktop.ini
+
+# Visual Studio
+.vs/
